@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 
 export default function ProductCard({ image, title, subtitle, rating }) {
@@ -8,7 +9,9 @@ export default function ProductCard({ image, title, subtitle, rating }) {
       
       {/* Image */}
       <div className="bg-gray-100 rounded-md p-6 flex items-center justify-center">
-        <img
+        <Image
+          height={160}
+          width={200}
           src={image}
           alt={title}
           className="h-40 object-contain group-hover:scale-105 transition duration-300"
