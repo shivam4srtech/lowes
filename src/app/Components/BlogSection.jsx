@@ -2,9 +2,9 @@
 
 import { useRef, useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import ProductCard from "./ProductCard";
+import BlogCard from "./BlogCard";
 
-export default function ProductSection({ products = [] }) {
+export default function BlogSection({ blogs = [] }) {
   const scrollRef = useRef(null);
 
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -48,8 +48,8 @@ export default function ProductSection({ products = [] }) {
 
   return (
     <section className="bg-gray-50 py-5">
-      <h2 className="font-semibold text-[30px]">The deals you must love</h2>
-      <div className="max-w-7xl mx-auto px-4 relative">
+      <h2 className="font-semibold text-[30px] mb-4">Must Read Blogs</h2>
+      <div className="max-w-7xl mx-auto relative">
 
         {/* LEFT ARROW */}
         {canScrollLeft && (
@@ -61,21 +61,22 @@ export default function ProductSection({ products = [] }) {
           </button>
         )}
 
-        {/* PRODUCTS CONTAINER */}
+        {/* blogS CONTAINER */}
         <div
           ref={scrollRef}
           className="flex gap-6 overflow-x-auto scroll-smooth no-scrollbar"
         >
-          {products.map((product) => (
+          {blogs.map((blog) => (
             <div
-              key={product.id}
+              key={blog.id}
               className="min-w-[250px] lg:min-w-[280px]"
             >
-              <ProductCard
-                image={product.thumbnail}
-                title={product.brand || product.title}
-                subtitle={product.title}
-                rating={product.rating}
+              <BlogCard
+                image={blog.thumbnail}
+                title={blog.title}
+                subtitle={blog.title}
+                rating={blog.rating}
+                description={blog.description}
               />
             </div>
           ))}

@@ -38,7 +38,7 @@ export default function Header(){
            {
             console.log("page is rerendered")
            }
-            <header className="items-center flex flex-row justify-between px-[20px] md:px-[40px] shadow-xs relative">
+            <header className="h-[50px] min-h-fit items-center flex flex-row justify-between px-[20px] md:px-[40px] shadow-xs relative">
                <ResponsiveRender breakpoint={768}
                 mobile={
                     <>

@@ -8,7 +8,7 @@
 .container{
   max-width: 1200px;
   margin: auto;
-  margin-top: 1rem;
+  margin-top: 0;
 }
 header .search svg{
   fill: #7c828f
