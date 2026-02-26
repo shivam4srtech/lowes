@@ -10,11 +10,11 @@ export default function ProductCard({ image, title, subtitle, rating }) {
       {/* Image */}
       <div className="bg-gray-100 rounded-md p-6 flex items-center justify-center">
         <Image
-          height={160}
+          height={200}
           width={200}
           src={image}
           alt={title}
-          className="h-40 object-contain group-hover:scale-105 transition duration-300"
+          className="w-full h-auto object-contain group-hover:scale-105 transition duration-300"
         />
       </div>
 

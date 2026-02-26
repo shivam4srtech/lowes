@@ -18,6 +18,7 @@ export default async function Home() {
   return (
      <>
         <div className="container">
+           
             <ProductSection products={products} />
         </div>
      </>
