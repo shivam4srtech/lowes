@@ -9,6 +9,7 @@
   max-width: 1200px;
   margin: auto;
   margin-top: 0;
+  padding: 0 .5rem;
 }
 header .search svg{
   fill: #7c828f

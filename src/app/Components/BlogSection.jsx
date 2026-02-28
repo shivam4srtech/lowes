@@ -48,51 +48,53 @@ export default function BlogSection({ blogs = [] }) {
 
   return (
     <section className="bg-gray-50 py-5">
-      <h2 className="font-semibold text-[30px] mb-4">Must Read Blogs</h2>
-      <div className="max-w-7xl mx-auto relative">
+        <div className="container">
+            <h2 className="font-semibold mb-4 text-[20px] md:text-[30px]">Must Read Blogs</h2>
+            <div className="max-w-7xl mx-auto relative">
 
-        {/* LEFT ARROW */}
-        {canScrollLeft && (
-          <button
-            onClick={() => scroll("left")}
-            className="hidden lg:flex absolute cursor-pointer left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-3 hover:scale-110 transition"
-          >
-            <FaChevronLeft />
-          </button>
-        )}
+                {/* LEFT ARROW */}
+                {canScrollLeft && (
+                <button
+                    onClick={() => scroll("left")}
+                    className="hidden lg:flex absolute cursor-pointer left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-3 hover:scale-110 transition"
+                >
+                    <FaChevronLeft />
+                </button>
+                )}
 
-        {/* blogS CONTAINER */}
-        <div
-          ref={scrollRef}
-          className="flex gap-6 overflow-x-auto scroll-smooth no-scrollbar"
-        >
-          {blogs.map((blog) => (
-            <div
-              key={blog.id}
-              className="min-w-[250px] lg:min-w-[280px]"
-            >
-              <BlogCard
-                image={blog.thumbnail}
-                title={blog.title}
-                subtitle={blog.title}
-                rating={blog.rating}
-                description={blog.description}
-              />
+                {/* blogS CONTAINER */}
+                <div
+                ref={scrollRef}
+                className="flex gap-6 overflow-x-auto scroll-smooth no-scrollbar"
+                >
+                {blogs.map((blog) => (
+                    <div
+                    key={blog.id}
+                    className="min-w-[250px] lg:min-w-[280px]"
+                    >
+                    <BlogCard
+                        image={blog.thumbnail}
+                        title={blog.title}
+                        subtitle={blog.title}
+                        rating={blog.rating}
+                        description={blog.description}
+                    />
+                    </div>
+                ))}
+                </div>
+
+                {/* RIGHT ARROW */}
+                {canScrollRight && (
+                <button
+                    onClick={() => scroll("right")}
+                    className="hidden cursor-pointer lg:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-3 hover:scale-110 transition"
+                >
+                    <FaChevronRight />
+                </button>
+                )}
+
             </div>
-          ))}
         </div>
-
-        {/* RIGHT ARROW */}
-        {canScrollRight && (
-          <button
-            onClick={() => scroll("right")}
-            className="hidden cursor-pointer lg:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-3 hover:scale-110 transition"
-          >
-            <FaChevronRight />
-          </button>
-        )}
-
-      </div>
     </section>
   );
 }

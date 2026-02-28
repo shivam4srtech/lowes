@@ -19,11 +19,11 @@ export default async function Home() {
   const products = await getProducts();
   return (
      <>
-        <div className="container">
-            <ProductSection products={products} />
-            <BlogSection blogs={products} />
-            <section className="category pb-[20px]">
-             <h2 className="font-semibold text-[30px] mb-4">The deals you must love</h2>
+        <ProductSection products={products} />
+        <BlogSection blogs={products} />
+        <section className="category pb-[20px]">
+          <div className="container">
+              <h2 className="font-semibold mb-4 text-[20px] md:text-[30px]">The deals you must love</h2>
               <div className="cat_list overflow-auto flex flex-row gap-5 items-center mb-4 no-scrollbar::-webkit-scrollbar no-scrollbar">
                   <Link className="cat_name rounded-[1.5rem] border-solid border-[1px] border-[#000000] p-[10px] text-[12px] uppercase font-[600] hover:border-[#0176b3] hover:bg-[#f3f4f6] whitespace-nowrap" href="/">Appliances</Link>
                   <Link className="cat_name rounded-[1.5rem] border-solid border-[1px] border-[#000000] p-[10px] text-[12px] uppercase font-[600] hover:border-[#0176b3] hover:bg-[#f3f4f6] whitespace-nowrap" href="/">Smart Home, Security, Wi-Fi</Link>
@@ -39,8 +39,8 @@ export default async function Home() {
                   <Link className="cat_name rounded-[1.5rem] border-solid border-[1px] border-[#000000] p-[10px] text-[12px] uppercase font-[600] hover:border-[#0176b3] hover:bg-[#f3f4f6] whitespace-nowrap" href="/">Home Decor</Link>
                   <Link className="cat_name rounded-[1.5rem] border-solid border-[1px] border-[#000000] p-[10px] text-[12px] uppercase font-[600] hover:border-[#0176b3] hover:bg-[#f3f4f6] whitespace-nowrap " href="/">Electronics</Link>
               </div>
-            </section>
-        </div>
+          </div>
+        </section>
      </>
   );
 }

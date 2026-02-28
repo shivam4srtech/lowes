@@ -6,7 +6,7 @@ import ResponsiveRender from './ResponsiveRender';
 import { IoMenuOutline, IoCloseOutline } from "react-icons/io5";
 import { GoSearch } from "react-icons/go";
 
-import StoreSearch from './StoreSearch'
+import StoreSearch from './StoreSearch';
 import { useState, useRef, useEffect  } from "react";
 export default function Header(){
     const [isOpen, setIsOpen] = useState(false);
@@ -35,9 +35,7 @@ export default function Header(){
     const defautNavClasses = "border-solid border-[#fff]  border-b-[2px] h-[65px] flex items-center px-[5px] text-[#7c828f] font-[400] text-[16px] uppercase"
     return(
         <>
-           {
-            console.log("page is rerendered")
-           }
+          
             <header className="h-[50px] min-h-fit items-center flex flex-row justify-between px-[20px] md:px-[40px] shadow-xs relative">
                <ResponsiveRender breakpoint={768}
                 mobile={
@@ -94,8 +92,8 @@ export default function Header(){
                                 </div>
                                 { showSearch? 
                                 (
-                                    <div className="absolute top-[52px] left-[0]  w-[100%]  mobile_search">
-                                        <div className="m-auto w-[92%]">
+                                    <div className="absolute top-[52px] left-[0]  w-[100%] bg-[#fff]  mobile_search p-4">
+                                        <div className="m-auto">
                                             <StoreSearch/>
                                         </div>
                                     </div>
