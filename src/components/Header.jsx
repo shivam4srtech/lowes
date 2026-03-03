@@ -32,11 +32,11 @@ export default function Header(){
         document.removeEventListener("mousedown", handleClickOutside);
         };
     },[isOpen, showSearch]);
-    const defautNavClasses = "border-solid border-[#fff]  border-b-[2px] h-[65px] flex items-center px-[5px] text-[#7c828f] font-[400] text-[16px] uppercase"
+    const defautNavClasses = "border-solid border-[#f0f3fe]  border-b-[2px] h-[65px] flex items-center px-[5px] text-[#7c828f] font-[400] text-[16px] uppercase"
     return(
         <>
           
-            <header className="h-[50px] min-h-fit items-center flex flex-row justify-between px-[20px] md:px-[40px] shadow-xs relative">
+            <header className="h-[50px] min-h-fit items-center flex flex-row justify-between px-[20px] md:px-[40px] shadow-xs relative bg-[#f0f3fe]">
                <ResponsiveRender breakpoint={768}
                 mobile={
                     <>

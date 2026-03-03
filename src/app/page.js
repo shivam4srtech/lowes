@@ -1,6 +1,6 @@
 import Image from "next/image";
-import ProductSection from "./Components/ProductSection";
-import BlogSection from "./Components/BlogSection";
+import ProductSection from "../components/ProductSection";
+import BlogSection from "../components/BlogSection";
 import Link from 'next/link'
 async function getProducts() {
   const res = await fetch(
