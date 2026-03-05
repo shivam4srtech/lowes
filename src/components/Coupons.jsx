@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import CodeModal  from './CodeModal';
 import DealModal  from './DealModal';
+import { formatDistanceToNow } from "date-fns";
+import { MdVerified } from "react-icons/md";
 import { useRef } from 'react';
 import Image from "next/image";
 const stripPTags = (html) => html.replace(/^<p>|<\/p>$/g, '');
@@ -107,7 +109,7 @@ async function trackCouponUsage(couponComponentId) {
       section.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
+//sending data to coupon modal
 const [selectedCoupon, setSelectedCoupon] = useState(null);
 const [isCodeModalOpen, setIsCodeModalOpen] = useState(false);
 const [isDealModalOpen, setIsDealModalOpen] = useState(false);
@@ -132,82 +134,154 @@ const handleCouponClick = (couponData) => {
     window.open(couponData.affiliate_url, "_blank");
   }
 };
+//coupon accordion
+const [openAccordion, setOpenAccordion] = useState({
+  id: null,
+  type: null
+});
+const toggleAccordion = (couponId, type) => {
 
+  if (openAccordion.id === couponId && openAccordion.type === type) {
+    setOpenAccordion({ id: null, type: null }); // close if clicked again
+  } else {
+    setOpenAccordion({ id: couponId, type });
+  }
+
+};
     return(
         <>
             {/* COUPON CARD */}
               {coupons.map((coupon) => (
-                <div className="bg-white rounded-2xl shadow p-6 flex flex-col md:flex-row gap-6 mb-2 items-center" key={coupon.id}>
-                  {/* Discount Badge */}
-                  <div className="flex-shrink-0 text-center border-r pr-6">
-                    <div className="text-3xl font-bold text-blue-900">20%</div>
-                    <div className="text-blue-900 font-semibold">OFF</div>
-                  </div>
+                <div key={coupon.id} className="coupon-wrapper bg-white rounded-2xl shadow p-3 mb-2">
+                  <div className=" flex flex-col md:flex-row gap-6  items-center" >
+                    {/* Discount Badge */}
+                    <div className="flex-shrink-0 text-center border-r pr-6">
+                      <div className="text-3xl font-bold  text-(--primary-color)">
+                         <div dangerouslySetInnerHTML={{ __html: getHeading(coupon.title) }}></div>
+                      </div>
+                      
+                    </div>
 
-                  {/* Coupon Content */}
-                  <div className="flex-1 space-y-3">
-                    <h3 className="text-xl font-semibold">
-                      {coupon.title}
-                    </h3>
-                    <p className="text-gray-600">
-                     {coupon.content}
-                    </p>
+                    {/* Coupon Content */}
+                    <div className="flex-1 flex items-center space-y-3">
+                      <div>
+                        <h3 className="text-xl font-semibold">
+                          {coupon.title}
+                        </h3>
+                        <p className="text-gray-600">
+                        {coupon.content}
+                        </p>
 
-                    <div className="flex items-center text-sm text-blue-700 space-x-4">
-                      <span>✔ Verified Today</span>
-                      <a href="#" className="hover:underline">
-                        Coupon History
-                      </a>
-                      <a href="#" className="hover:underline">
-                        Terms & Conditions
-                      </a>
+                        <div className="flex items-center text-sm text-blue-700 space-x-4">
+                          <span className="no-wrap flex items-center gap-1 text-[.7rem] text-[#1a0dab]"><MdVerified fill="#f5b402" /> Verified Today</span>
+                            <button
+                                onClick={() => toggleAccordion(coupon.id, "history")}
+                                  className="hover:underline cursor-pointer text-[.7rem] text-[#1a0dab]"
+                                >
+                                Coupon History  
+                            </button>
+                            <button
+                                  onClick={() => toggleAccordion(coupon.id, "terms")}
+                                  className="hover:underline cursor-pointer text-[.7rem] text-[#1a0dab]"
+                                >
+                                Terms &amp; Conditions
+                            </button>
+                        
+                        </div>
+                      </div>
+
+                      {/* GET CODE Button */}
+                      {coupon.coupon_type === 'code' ? 
+                        (
+                          <div className="cursor-pointer inline-flex items-stretch border-2 border-dashed border-blue-400 rounded-lg overflow-hidden"
+                          onClick={() => handleCouponClick(coupon)}
+                          
+                          >
+                              {/* Left Side */}
+                              <button className="whitespace-nowrap relative bg-(--primary-color) cursor-pointer text-white font-semibold px-6 py-3 flex items-center justify-center">
+                                GET CODE
+
+                                {/* Diagonal Cut */}
+                                <span className="absolute hover:right-[-20px] right-[-30px] top-0 h-full w-10 bg-(--primary-color) transform skew-x-[-20deg]"></span>
+                              </button>
+
+                              {/* Right Side */}
+                              <div className="flex items-center px-6 py-3 bg-white text-gray-800 font-semibold">
+                                {coupon.coupon_code}
+                              </div>
+                          </div>
+                        )
+                        :
+                        (
+                          <div className="cursor-pointer inline-flex items-stretch border-2 border-dashed border-blue-400 rounded-lg overflow-hidden"
+                            onClick={handleCouponClick}
+                            
+                            >
+                              {/* Left Side */}
+                              <button className="whitespace-nowrap cursor-pointer relative bg-(--primary-color) text-white font-semibold px-6 py-3 flex items-center justify-center">
+                                GET CODE
+
+                                {/* Diagonal Cut */}
+                                <span className="absolute hover:right-[-20px] right-[-30px] top-0 h-full w-10 bg-(--primary-color) transform skew-x-[-20deg]"></span>
+                              </button>
+
+                              {/* Right Side */}
+                              <div className="flex items-center px-6 py-3 bg-white text-gray-800 font-semibold">
+                                **********************
+                              </div>
+
+
+                          </div>
+                        )  
+                      }
                     </div>
                   </div>
+                  {/* coupon accordions */}
+                  <div className="coup_accord">
+                      {/* Coupuon History */}
+                      <div
+                            className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                              openAccordion.id === coupon.id &&
+                              openAccordion.type === "history"
+                                ? "max-h-40 mt-3 opacity-100"
+                                : "max-h-0 opacity-0"
+                            }`}
+                          >
+                        <div className="text-sm text-gray-600">
+                          <div className="history">
+                              <ul>
+                                {coupon.last_used_at && coupon.coupon_type === "code" &&
+                                  <li>
+                                    '{coupon.coupon_code}' promo code was used by shoppers {formatDistanceToNow(new Date(coupon.last_used_at), { addSuffix: true })} {coupon.is_worked && (coupon.is_worked === "True" ? "and it worked." : "and it didn't work.")}
+                                  </li>
+                                }
 
-                  {/* GET CODE Button */}
-                  {coupon.coupon_type === 'code' ? 
-                    (
-                      <div className="cursor-pointer inline-flex items-stretch border-2 border-dashed border-blue-400 rounded-lg overflow-hidden"
-                       onClick={() => handleCouponClick(coupon)}
-                      
-                      >
-                          {/* Left Side */}
-                          <button className="relative bg-(--primary-color) text-white font-semibold px-6 py-3 flex items-center justify-center">
-                            GET CODE
-
-                            {/* Diagonal Cut */}
-                            <span className="absolute hover:right-[-20px] right-[-30px] top-0 h-full w-10 bg-(--primary-color) transform skew-x-[-20deg]"></span>
-                          </button>
-
-                          {/* Right Side */}
-                          <div className="flex items-center px-6 py-3 bg-white text-gray-800 font-semibold">
-                             {coupon.coupon_code}
+                                {coupon.last_used_at && coupon.coupon_type === "deal" &&
+                                  <li>
+                                    This coupon was used by shoppers {formatDistanceToNow(new Date(coupon.last_used_at), { addSuffix: true })} {coupon.is_worked && (coupon.is_worked === "True" ? "and it worked." : "and it didn't work.")}
+                                  </li>
+                                }
+                                <li> Added by - <button onClick={() => scrollToSection('couponExperts')}> Coupon Experts</button></li>
+                            </ul>
                           </div>
+                        </div>
                       </div>
-                    )
-                    :
-                    (
-                      <div className="cursor-pointer inline-flex items-stretch border-2 border-dashed border-blue-400 rounded-lg overflow-hidden"
-                        onClick={handleCouponClick}
-                        
-                        >
-                          {/* Left Side */}
-                          <button className="cursor-pointer relative bg-(--primary-color) text-white font-semibold px-6 py-3 flex items-center justify-center">
-                            GET CODE
-
-                            {/* Diagonal Cut */}
-                            <span className="absolute hover:right-[-20px] right-[-30px] top-0 h-full w-10 bg-(--primary-color) transform skew-x-[-20deg]"></span>
-                          </button>
-
-                          {/* Right Side */}
-                          <div className="flex items-center px-6 py-3 bg-white text-gray-800 font-semibold">
-                             **********************
-                          </div>
+                      {/* coupon terms and conditions */}
+                      <div
+                            className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                              openAccordion.id === coupon.id &&
+                              openAccordion.type === "terms"
+                                ? "max-h-40 mt-3 opacity-100"
+                                : "max-h-0 opacity-0"
+                            }`}
+                          >
+                        <div className="text-sm text-gray-600">
+                          <div className="list-decimal text-gray-600" dangerouslySetInnerHTML={{ __html: coupon.term_condition }} />
+                        </div>
                       </div>
-                    )  
-                  }
-                 
-                </div>
+                  </div>
+                </div>  
+                
               ))}
               {/* Outside the loop at the bottom of the return */}
            

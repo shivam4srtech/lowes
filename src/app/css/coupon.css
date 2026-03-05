@@ -1,0 +1,49 @@
+.coup_accord ol{
+   list-style-type: decimal;
+  list-style-position: outside;
+  padding-left: 20px;
+}
+.coup_accord ol li{
+font-size: .7rem;
+margin-bottom: .2rem;
+}
+.coup_accord .history ul{
+    padding-left: 20px;
+}
+.history ul li {
+    font-weight: 600;
+    color: #222;
+    font-size: .8rem;
+    line-height: 2;
+}
+.history ul li {
+    position: relative;
+    display: block;
+    padding-left: 20px;
+}
+.history ul li:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 10px;
+    height: 10px;
+    background: var(--primary-color);
+    margin-top: 7px;
+    border-radius: 50%;
+    display: block;
+}
+.history ul li:before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 10px;
+    width: 2px;
+    height: 100%;
+    background: #bbb;
+    display: block;
+}
+.coupon_filter button:nth-of-type(2){
+    border-left: 2px solid var(--primary-color);
+    border-right: 2px solid var(--primary-color);
+}

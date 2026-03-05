@@ -1,7 +1,11 @@
 import { notFound } from "next/navigation";
 import { cache } from "react";
+import moment from 'moment';
 import Link from "next/link";
 import Coupons from '@/components/Coupons';
+import CouponFliter from '@/components/CouponFilter'
+import StoreFaqs from '@/components/StoreFaqs'
+import "../../css/coupon.css";
 //ISR 
 export const revalidate = 3600; // 1 hour
 //Fetch Single Store (STATIC SAFE)
@@ -58,6 +62,8 @@ export async function generateMetadata({ params }) {
     };
   }
   const canonical_url = `https://homiy.com/stores/${slug}`;
+
+
   return {
     title: store.seo_title,
     description: store.seo_description,
@@ -94,46 +100,85 @@ export default async function StorePage({ params }) {
   if (!store || store.detail) {
     notFound();
   }
-  
-
+  //about store
+ const storeDescription = store.store_description;
+ const paragraphs = storeDescription.split("</p>");
+  // best offer
+   const bestOffer = store.coupon_set.reduce((best, coupon) => {
+    const match = coupon.title.match(/(\d+)% Off/);
+    const discount = match ? parseInt(match[1], 10) : 0;
+    return discount > best.discount ? { text: coupon.title, discount } : best;
+  }, { text: "No Offer", discount: 0 }).text;
   return (
        <>
         <div className="bg-gray-100 min-h-screen py-8">
-          <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-4 gap-6">
+          <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
             
             {/* LEFT SIDEBAR */}
-            <aside className="space-y-6">
-              <div className="bg-white rounded-2xl shadow p-6 text-center">
-                <div className="w-32 h-32 mx-auto bg-gray-100 rounded-xl flex items-center justify-center">
-                  <span className="text-gray-400 text-sm">Store Logo</span>
-                </div>
-                <h2 className="mt-4 text-lg font-semibold">{store.title}</h2>
-              </div>
+            <aside className="text-gray-800">
+              <div className="bg-white rounded-xl shadow-sm p-3 space-y-5 mb-2">
 
-              <div className="bg-white rounded-2xl shadow p-6 space-y-4 text-sm">
-                <div className="flex justify-between">
-                  <span>Total Offers</span>
-                  <span className="font-semibold">11</span>
+                {/* Total Offers */}
+                <div className="flex justify-between items-start">
+                  <div className="flex gap-2 items-center text-[.8rem]">
+                    <span>🛍️</span>
+                    <span className="font-medium">Total Offers</span>
+                  </div>
+                  <span className="font-semibold text-[.8rem]">{store.coupon_set.length}</span>
                 </div>
 
-                <div className="flex justify-between items-center">
-                  <span>Coupon Success</span>
-                  <span className="bg-green-600 text-white text-xs px-3 py-1 rounded-lg">
+                {/* Coupon Success */}
+                <div className="flex justify-between items-start text-[.8rem]">
+                  <div className="flex gap-2 items-center">
+                    <span>✅</span>
+                    <span className="font-medium text-[.8rem]">Coupon Success</span>
+                  </div>
+
+                  <span className="bg-green-700 text-white text-sm px-3 py-1 rounded-md font-semibold text-[.6rem]">
                     Very High
                   </span>
                 </div>
 
-                <div className="flex justify-between">
-                  <span>Verified Codes</span>
-                  <span className="font-semibold">11</span>
+                {/* Verified Coupon Code */}
+                <div className="flex justify-between items-start text-[.8rem]">
+                  <div className="flex gap-2 items-center">
+                    <span>🏷️</span>
+                    <span className="font-medium">Verified Coupon Code</span>
+                  </div>
+                  <span className="font-semibold">{store.coupon_set.length}</span>
                 </div>
 
-                <div>
-                  <span className="block text-gray-500">Best Offer</span>
-                  <span className="font-semibold">
-                    25% Off on Your Purchase
-                  </span>
+                {/* Best Offer */}
+                <div className="flex justify-between items-start gap-4 text-[.8rem]">
+                  <div className="flex gap-2 items-center">
+                    <span>🔥</span>
+                    <span className="font-medium">Best Offer</span>
+                  </div>
+
+                  <p className="text-left text-[.8rem] max-w-[180px]">
+                    {bestOffer}
+                  </p>
                 </div>
+
+                {/* Last Updated */}
+                <div className="flex justify-between items-start text-[.8rem]">
+                  <div className="flex gap-2 items-center">
+                    <span>⏰</span>
+                    <span className="font-medium">Last Updated</span>
+                  </div>
+
+                  <span>{moment().format("MMMM D, YYYY")}</span>
+                </div>
+
+                {/* Littitle Description */}
+                <div className="text-[.8rem]">
+                  <div dangerouslySetInnerHTML={{ __html: paragraphs[0] + "</p>" }} />
+                </div>
+              </div>
+              {/* contat */}
+              <div className="bg-white rounded-xl shadow-sm p-3 space-y-5 mb-2">
+                  <h3 className="text-xl font-semibold mb-1">Contact {store.title}</h3>
+                  <p className="text-gray-600 text-[.8rem]">{store.contact}</p>
               </div>
             </aside>
 
@@ -141,7 +186,7 @@ export default async function StorePage({ params }) {
             <main className="lg:col-span-3 space-y-6">
 
               {/* Category */}
-              <Link href={`category/${store.category[0]?.slug}`} title={store.category[0]?.title} className="inline-block bg-blue-800 text-white text-xs px-3 py-1 rounded-md">
+              <Link href={`category/${store.category[0]?.slug}`} title={store.category[0]?.title} className="inline-block bg-(--primary-color) text-white text-xs px-3 py-1 rounded-md">
                 {store.category[0]?.title}
               </Link>
 
@@ -151,23 +196,10 @@ export default async function StorePage({ params }) {
               </h1>
 
               {/* Tabs */}
-              <div className="flex border rounded-xl overflow-hidden bg-white shadow">
-                {["All", "Verified", "Codes"].map((tab, i) => (
-                  <button
-                    key={i}
-                    className={`flex-1 py-3 text-sm font-medium ${
-                      i === 0
-                        ? "bg-blue-900 text-white"
-                        : "text-blue-900 hover:bg-gray-50"
-                    }`}
-                  >
-                    {tab}
-                  </button>
-                ))}
-              </div>
+              <CouponFliter coupon_count={store.coupon_set.length}/>
 
               <div className="listcoupons">
-                   <Coupons 
+                    <Coupons 
                       coupons={store.coupon_set} 
                       storeSlug={store.slug} 
                       isSubdomain={store.subdomain}
@@ -176,6 +208,15 @@ export default async function StorePage({ params }) {
                       storeName ={store.title}
                    />
               </div>
+              {/* about store */}
+              <div className="about_str">
+                  <h2 className="text-xl font-semibold">About {store.title}</h2>
+                  <div>
+                     <div dangerouslySetInnerHTML={{ __html: paragraphs.slice(1).join("</p>") }} />
+                  </div>
+              </div>
+              {/* faqs */}
+              <StoreFaqs faqsHtml={store.extra_info} storeName={store.title}  />
             </main>
           </div>
         </div>
