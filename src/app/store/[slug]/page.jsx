@@ -35,7 +35,7 @@ const getStore = cache(async (slug) => {
 // Static Slugs
 export async function generateStaticParams() {
   const res = await fetch(
-    "https://admin.scoopcost.com/stores/slugs/",
+    "https://admin.scoopcost.com/store/slugs/",
     {
       headers: {
         "x-api-key": process.env.SECRET_KEY,
@@ -86,7 +86,7 @@ export async function generateMetadata({ params }) {
       description: "Store does not exist",
     };
   }
-  const canonical_url = `https://homiy.com/stores/${slug}`;
+  const canonical_url = `https://homiy.com/store/${slug}`;
 
 
   return {
@@ -223,7 +223,7 @@ const categorySlug = store.category?.[0]?.slug;
                             {filteredStores.map((store) => (
                             <li key={store.slug}>
                                 <Link
-                                  href={`/stores/${store.slug}`}
+                                  href={`/store/${store.slug}`}
                                   className="inline-block text-[.8rem] hover:underline"
                                 >
                                     {store.title}
@@ -305,7 +305,7 @@ const categorySlug = store.category?.[0]?.slug;
                           {filteredStores.map((store) => (
                             <Link
                               key={store.slug}
-                              href={`/stores/${store.slug}`}
+                              href={`/store/${store.slug}`}
                               className="border rounded p-1 hover:shadow"
                             >
                             

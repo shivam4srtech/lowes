@@ -76,7 +76,7 @@ export default function Header(){
                                         <Link href={'/category'} className={`${defautNavClasses} ${pathname === "/category" ? "active" : ''}`} >Category</Link>
                                     </li>
                                     <li className="flex items-center">
-                                        <Link href={'/store'} className={`${defautNavClasses} ${pathname === "/store" ? "active" : ''}`} >Store</Link>
+                                        <Link href={'/stores'} className={`${defautNavClasses} ${pathname === "/stores" ? "active" : ''}`} >Store</Link>
                                     </li>
                                 </ul>
                             </>
@@ -167,10 +167,10 @@ export default function Header(){
                                 </li>
                                 <li>
                                     <Link
-                                    href="/store"
+                                    href="/stores"
                                     onClick={() => setIsOpen(false)}
                                     className={`${defautNavClasses} ${
-                                        pathname === "/store" ? "active" : ""
+                                        pathname === "/stores" ? "active" : ""
                                     }`}
                                     >
                                     Store

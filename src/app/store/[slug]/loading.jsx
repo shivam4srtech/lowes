@@ -50,7 +50,7 @@ export default function Loading() {
                       <div className="h-8 bg-gray-300 rounded w-3/4"></div>
 
                       {/* Tabs */}
-                      <div className="flex border rounded-xl overflow-hidden">
+                      <div className="flex  rounded-xl overflow-hidden">
                         <div className="flex-1 h-12 bg-gray-300"></div>
                         <div className="flex-1 h-12 bg-gray-200"></div>
                         <div className="flex-1 h-12 bg-gray-200"></div>
@@ -93,7 +93,7 @@ export default function Loading() {
             <>
               <div className="bg-white  p-5 flex gap-6 animate-pulse">
                 {/* Discount Section */}
-                <div className="w-20 flex flex-col items-center justify-center border-r pr-4">
+                <div className="w-20 flex flex-col items-center justify-center  pr-4">
                   <div className="h-7 w-12 bg-gray-300 rounded mb-2"></div>
                   <div className="h-6 w-10 bg-gray-300 rounded"></div>
                 </div>
