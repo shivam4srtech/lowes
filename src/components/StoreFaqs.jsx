@@ -23,13 +23,13 @@ export default function StoreFaqs({ faqsHtml, storeName }) {
      <h2 className="text-xl font-semibold mb-4">Faqs for {storeName}</h2>
       {faqs.map((faq, index) => (
 
-        <div key={index} className="rounded-xl border overflow-hidden shadow-sm mb-2">
+        <div key={index} className="rounded-xl border border-(--primary-color) overflow-hidden shadow-sm mb-2">
 
           {/* Question */}
           <button
             onClick={() => toggleFaq(index)}
-            className={`w-full text-left px-6 py-4 flex justify-between items-center font-semibold transition
-            ${openIndex === index ? "bg-blue-800 text-white" : "bg-gray-100"}
+            className={`w-full text-left md:text-[1rem] text-[.8rem] md:px-6 md:py-4 p-3 flex justify-between items-center font-semibold transition
+            ${openIndex === index ? "bg-(--primary-color) text-white" : "bg-gray-100"}
             `}
           >
             {faq.question}
@@ -46,10 +46,10 @@ export default function StoreFaqs({ faqsHtml, storeName }) {
           {/* Answer */}
           <div
             className={`transition-all duration-300 overflow-hidden ${
-              openIndex === index ? "max-h-96 p-6 bg-white" : "max-h-0"
+              openIndex === index ? "max-h-96 p-2 md:p-6 bg-white" : "max-h-0"
             }`}
           >
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-gray-700 md:text[.9rem] text-[.75rem] leading-relaxed">
               {faq.answer}
             </p>
           </div>

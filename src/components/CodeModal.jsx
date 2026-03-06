@@ -21,18 +21,20 @@ const CodeModal = ({ isOpen, onClose, coupon, storeName, affiliateUrl }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
       <div className="relative w-full max-w-xl bg-white rounded-xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
         
-        <button onClick={onClose} className="cursor-pointer absolute right-4 top-4 p-1 text-gray-400 hover:text-gray-600 transition-colors">
-          <IoClose size={28} />
-        </button>
+        <div className='modal-header h-[2.2rem]'>
+          <button onClick={onClose} className="cursor-pointer absolute right-4 top-[-3px] right-[2px] p-1 text-gray-400 hover:text-gray-600 transition-colors bg-[#fff]">
+            <IoClose size={28} />
+          </button>
+        </div>
 
-        <div className="modal-body max-h-[90vh] overflow-auto">
-          <div className="p-6 pb-0 text-center">
+        <div className="modal-body max-h-[90vh] overflow-auto p-4">
+          <div className="pb-0 text-center">
             <h2 className="text-xl md:text-2xl font-bold text-gray-800 pr-8">
               {coupon.title} -  Code
             </h2>
           </div>
 
-          <div className="p-8 flex flex-col items-center space-y-6">
+          <div className="flex flex-col items-center space-y-6">
             {/* Logo Placeholder */}
             <div className="w-32 h-16 border border-gray-100 flex items-center justify-center p-2 rounded bg-gray-50">
               <span className="text-gray-400 font-bold italic">Logo</span>

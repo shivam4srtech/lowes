@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import CodeModal  from './CodeModal';
 import DealModal  from './DealModal';
+import ResponsiveRender from './ResponsiveRender'
 import { formatDistanceToNow } from "date-fns";
 import { MdVerified } from "react-icons/md";
 import { useRef } from 'react';
@@ -153,47 +154,51 @@ const toggleAccordion = (couponId, type) => {
             {/* COUPON CARD */}
               {coupons.map((coupon) => (
                 <div key={coupon.id} className="coupon-wrapper bg-white rounded-2xl shadow p-3 mb-2">
-                  <div className=" flex flex-col md:flex-row gap-6  items-center" >
+                  <div className=" flex flex-row gap-2 md:gap-6  item-start md:items-center" >
                     {/* Discount Badge */}
-                    <div className="flex-shrink-0 text-center border-r pr-6">
-                      <div className="text-3xl font-bold  text-(--primary-color)">
+                    <div className="flex-shrink-0 text-center border-r pr-1 md:pr-6">
+                      <div className="md:text-3xl text-[1.4rem] font-bold text-(--primary-color)">
                          <div dangerouslySetInnerHTML={{ __html: getHeading(coupon.title) }}></div>
                       </div>
-                      
                     </div>
-
                     {/* Coupon Content */}
-                    <div className="flex-1 flex items-center space-y-3">
-                      <div>
-                        <h3 className="text-xl font-semibold">
+                    <div className="flex-1 flex items-center justify-between flex-col md:flex-row space-y-3  md:gap-1 gap-2">
+                      <div className="md:w-[70%] w-full mb-0">
+                        <h3 className="md:text-[1.1rem] text-[.9rem] font-semibold">
                           {coupon.title}
                         </h3>
-                        <p className="text-gray-600">
+                        <p className="text-gray-600 md:text-[1rem] text-[.8rem]">
                         {coupon.content}
                         </p>
 
-                        <div className="flex items-center text-sm text-blue-700 space-x-4">
-                          <span className="no-wrap flex items-center gap-1 text-[.7rem] text-[#1a0dab]"><MdVerified fill="#f5b402" /> Verified Today</span>
-                            <button
-                                onClick={() => toggleAccordion(coupon.id, "history")}
-                                  className="hover:underline cursor-pointer text-[.7rem] text-[#1a0dab]"
-                                >
-                                Coupon History  
-                            </button>
-                            <button
-                                  onClick={() => toggleAccordion(coupon.id, "terms")}
-                                  className="hover:underline cursor-pointer text-[.7rem] text-[#1a0dab]"
-                                >
-                                Terms &amp; Conditions
-                            </button>
+                         <ResponsiveRender breakpoint={768}
+                              desktop={
+                                <>
+                                    <div className="flex items-center text-sm text-blue-700 space-x-4">
+                                      <span className="no-wrap flex items-center gap-1 text-[.7rem] text-[#1a0dab]"><MdVerified fill="#f5b402" /> Verified Today</span>
+                                      <button
+                                          onClick={() => toggleAccordion(coupon.id, "history")}
+                                            className="hover:underline cursor-pointer text-[.7rem] text-[#1a0dab]"
+                                          >
+                                          Coupon History  
+                                      </button>
+                                      <button
+                                            onClick={() => toggleAccordion(coupon.id, "terms")}
+                                            className="hover:underline cursor-pointer text-[.7rem] text-[#1a0dab]"
+                                          >
+                                          Terms &amp; Conditions
+                                      </button>
                         
-                        </div>
+                                    </div>
+                                </>
+                              }
+                         />
                       </div>
 
                       {/* GET CODE Button */}
                       {coupon.coupon_type === 'code' ? 
                         (
-                          <div className="cursor-pointer inline-flex items-stretch border-2 border-dashed border-blue-400 rounded-lg overflow-hidden"
+                          <div className="md:w-[30%] w-full cursor-pointer inline-flex items-stretch border-2 border-dashed border-blue-400 rounded-lg overflow-hidden mb-0"
                           onClick={() => handleCouponClick(coupon)}
                           
                           >
@@ -234,6 +239,29 @@ const toggleAccordion = (couponId, type) => {
                           </div>
                         )  
                       }
+                      {/* btn ends */}
+                      <ResponsiveRender breakpoint={768}
+                              mobile={
+                                <>
+                                    <div className="flex items-center justify-between w-[100%] text-sm text-blue-700 space-x-4">
+                                      <span className="no-wrap flex items-center gap-1 text-[.7rem] text-[#1a0dab]"><MdVerified fill="#f5b402" /> Verified Today</span>
+                                      <button
+                                          onClick={() => toggleAccordion(coupon.id, "history")}
+                                            className="hover:underline cursor-pointer text-[.7rem] text-[#1a0dab]"
+                                          >
+                                          Coupon History  
+                                      </button>
+                                      <button
+                                            onClick={() => toggleAccordion(coupon.id, "terms")}
+                                            className="hover:underline cursor-pointer text-[.7rem] text-[#1a0dab]"
+                                          >
+                                          T &amp; C
+                                      </button>
+                        
+                                    </div>
+                                </>
+                              }
+                         />
                     </div>
                   </div>
                   {/* coupon accordions */}

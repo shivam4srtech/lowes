@@ -4,6 +4,7 @@ import moment from 'moment';
 import Link from "next/link";
 import Coupons from '@/components/Coupons';
 import CouponFliter from '@/components/CouponFilter'
+import ResponsiveRender from '@/components/ResponsiveRender'
 import StoreFaqs from '@/components/StoreFaqs'
 import "../../css/coupon.css";
 //ISR 
@@ -111,87 +112,93 @@ export default async function StorePage({ params }) {
   }, { text: "No Offer", discount: 0 }).text;
   return (
        <>
-        <div className="bg-gray-100 min-h-screen py-8">
-          <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
+        <div className="bg-gray-100 min-h-screen py-4">
+          <div className="max-w-7xl mx-auto md:px-4 px-2 grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
             
             {/* LEFT SIDEBAR */}
-            <aside className="text-gray-800">
-              <div className="bg-white rounded-xl shadow-sm p-3 space-y-5 mb-2">
+            <ResponsiveRender breakpoint={1023}
+                desktop={
+                  <>
+                    <aside className="text-gray-800">
+                      <div className="bg-white rounded-xl shadow-sm p-3 space-y-5 mb-2">
 
-                {/* Total Offers */}
-                <div className="flex justify-between items-start">
-                  <div className="flex gap-2 items-center text-[.8rem]">
-                    <span>🛍️</span>
-                    <span className="font-medium">Total Offers</span>
-                  </div>
-                  <span className="font-semibold text-[.8rem]">{store.coupon_set.length}</span>
-                </div>
+                        {/* Total Offers */}
+                        <div className="flex justify-between items-start">
+                          <div className="flex gap-2 items-center text-[.8rem]">
+                            <span>🛍️</span>
+                            <span className="font-medium">Total Offers</span>
+                          </div>
+                          <span className="font-semibold text-[.8rem]">{store.coupon_set.length}</span>
+                        </div>
 
-                {/* Coupon Success */}
-                <div className="flex justify-between items-start text-[.8rem]">
-                  <div className="flex gap-2 items-center">
-                    <span>✅</span>
-                    <span className="font-medium text-[.8rem]">Coupon Success</span>
-                  </div>
+                        {/* Coupon Success */}
+                        <div className="flex justify-between items-start text-[.8rem]">
+                          <div className="flex gap-2 items-center">
+                            <span>✅</span>
+                            <span className="font-medium text-[.8rem]">Coupon Success</span>
+                          </div>
 
-                  <span className="bg-green-700 text-white text-sm px-3 py-1 rounded-md font-semibold text-[.6rem]">
-                    Very High
-                  </span>
-                </div>
+                          <span className="bg-green-700 text-white text-sm px-3 py-1 rounded-md font-semibold text-[.6rem]">
+                            Very High
+                          </span>
+                        </div>
 
-                {/* Verified Coupon Code */}
-                <div className="flex justify-between items-start text-[.8rem]">
-                  <div className="flex gap-2 items-center">
-                    <span>🏷️</span>
-                    <span className="font-medium">Verified Coupon Code</span>
-                  </div>
-                  <span className="font-semibold">{store.coupon_set.length}</span>
-                </div>
+                        {/* Verified Coupon Code */}
+                        <div className="flex justify-between items-start text-[.8rem]">
+                          <div className="flex gap-2 items-center">
+                            <span>🏷️</span>
+                            <span className="font-medium">Verified Coupon Code</span>
+                          </div>
+                          <span className="font-semibold">{store.coupon_set.length}</span>
+                        </div>
 
-                {/* Best Offer */}
-                <div className="flex justify-between items-start gap-4 text-[.8rem]">
-                  <div className="flex gap-2 items-center">
-                    <span>🔥</span>
-                    <span className="font-medium">Best Offer</span>
-                  </div>
+                        {/* Best Offer */}
+                        <div className="flex justify-between items-start gap-4 text-[.8rem]">
+                          <div className="flex gap-2 items-center">
+                            <span>🔥</span>
+                            <span className="font-medium">Best Offer</span>
+                          </div>
 
-                  <p className="text-left text-[.8rem] max-w-[180px]">
-                    {bestOffer}
-                  </p>
-                </div>
+                          <p className="text-left text-[.8rem] max-w-[180px]">
+                            {bestOffer}
+                          </p>
+                        </div>
 
-                {/* Last Updated */}
-                <div className="flex justify-between items-start text-[.8rem]">
-                  <div className="flex gap-2 items-center">
-                    <span>⏰</span>
-                    <span className="font-medium">Last Updated</span>
-                  </div>
+                        {/* Last Updated */}
+                        <div className="flex justify-between items-start text-[.8rem]">
+                          <div className="flex gap-2 items-center">
+                            <span>⏰</span>
+                            <span className="font-medium">Last Updated</span>
+                          </div>
 
-                  <span>{moment().format("MMMM D, YYYY")}</span>
-                </div>
+                          <span>{moment().format("MMMM D, YYYY")}</span>
+                        </div>
 
-                {/* Littitle Description */}
-                <div className="text-[.8rem]">
-                  <div dangerouslySetInnerHTML={{ __html: paragraphs[0] + "</p>" }} />
-                </div>
-              </div>
-              {/* contat */}
-              <div className="bg-white rounded-xl shadow-sm p-3 space-y-5 mb-2">
-                  <h3 className="text-xl font-semibold mb-1">Contact {store.title}</h3>
-                  <p className="text-gray-600 text-[.8rem]">{store.contact}</p>
-              </div>
-            </aside>
+                        {/* Littitle Description */}
+                        <div className="text-[.8rem]">
+                          <div dangerouslySetInnerHTML={{ __html: paragraphs[0] + "</p>" }} />
+                        </div>
+                      </div>
+                      {/* contat */}
+                      <div className="bg-white rounded-xl shadow-sm p-3 space-y-5 mb-2">
+                          <h3 className="text-xl font-semibold mb-1">Contact {store.title}</h3>
+                          <p className="text-gray-600 text-[.8rem]">{store.contact}</p>
+                      </div>
+                    </aside>
+                  </>
+                }
+            />
 
             {/* RIGHT CONTENT */}
-            <main className="lg:col-span-3 space-y-6">
+            <main className="lg:col-span-3">
 
               {/* Category */}
-              <Link href={`category/${store.category[0]?.slug}`} title={store.category[0]?.title} className="inline-block bg-(--primary-color) text-white text-xs px-3 py-1 rounded-md">
+              <Link href={`category/${store.category[0]?.slug}`} title={store.category[0]?.title} className="inline-block bg-(--primary-color) text-white text-xs px-3 py-1 rounded-md mb-2">
                 {store.category[0]?.title}
               </Link>
 
               {/* Title */}
-              <h1 className="text-3xl font-bold">
+              <h1 className="md:text-2xl text-[1.2rem] font-bold mb-3">
                 {store.store_h1}
               </h1>
 
@@ -208,13 +215,32 @@ export default async function StorePage({ params }) {
                       storeName ={store.title}
                    />
               </div>
-              {/* about store */}
-              <div className="about_str">
-                  <h2 className="text-xl font-semibold">About {store.title}</h2>
-                  <div>
-                     <div dangerouslySetInnerHTML={{ __html: paragraphs.slice(1).join("</p>") }} />
-                  </div>
-              </div>
+              {/* about store for desktop */}
+              <ResponsiveRender breakpoint={1023}
+                desktop={
+                    <>
+                      <div className="about_str mb-3">
+                          <h2 className="text-xl font-semibold">About {store.title}</h2>
+                          <div>
+                            <div dangerouslySetInnerHTML={{ __html: paragraphs.slice(1).join("</p>") }} />
+                          </div>
+                      </div>
+                    </>
+                }
+              />
+              {/* about store for desktop */}
+              <ResponsiveRender breakpoint={1023}
+                mobile={
+                    <>
+                      <div className="about_str mb-3">
+                          <h2 className="text-xl font-semibold">About {store.title}</h2>
+                          <div>
+                            <div dangerouslySetInnerHTML={{ __html: paragraphs.slice(0).join("</p>") }} />
+                          </div>
+                      </div>
+                    </>
+                }
+              />
               {/* faqs */}
               <StoreFaqs faqsHtml={store.extra_info} storeName={store.title}  />
             </main>
