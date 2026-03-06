@@ -56,3 +56,10 @@ margin-bottom: .2rem;
         margin-bottom: .5rem;
     }
 }
+.one-line{
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

@@ -22,12 +22,16 @@ const getStore = cache(async (slug) => {
   );
 
 
+
   if (!res.ok) return null;
   const store = await res.json();
 
   console.log("Fetched Store Object:", store); // 👈 appears in TERMINAL
+  console.log("Fetched current category:", store.category[0].slug); // 👈 appears in TERMINAL
   return store;
 });
+
+
 // Static Slugs
 export async function generateStaticParams() {
   const res = await fetch(
@@ -50,6 +54,26 @@ export async function generateStaticParams() {
     
   }));
 }
+
+const getRelatedStores = cache(async (categorySlug) => {
+
+  const res = await fetch(
+    `https://admin.scoopcost.com/categories/${categorySlug}/`,
+    {
+      headers: {
+        "x-api-key": process.env.SECRET_KEY,
+      },
+      next: { revalidate: 3600 },
+    }
+  );
+
+  if (!res.ok) return [];
+
+  const category = await res.json();
+
+  return category?.store_set?.results || [];
+
+});
 //Metadata
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -94,13 +118,22 @@ export async function generateMetadata({ params }) {
 
 //Page
 export default async function StorePage({ params }) {
-  const { slug } = await params; // Next 15 fix
+  const { slug } = await params; // ✅ correct
 
   const store = await getStore(slug);
 
   if (!store || store.detail) {
     notFound();
   }
+const categorySlug = store.category?.[0]?.slug;
+
+  const relatedStores = categorySlug
+    ? await getRelatedStores(categorySlug)
+    : [];
+
+  const filteredStores = relatedStores
+    .filter((s) => s.slug !== slug)
+    .slice(0, 8);
   //about store
  const storeDescription = store.store_description;
  const paragraphs = storeDescription.split("</p>");
@@ -184,6 +217,22 @@ export default async function StorePage({ params }) {
                           <h3 className="text-xl font-semibold mb-1">Contact {store.title}</h3>
                           <p className="text-gray-600 text-[.8rem]">{store.contact}</p>
                       </div>
+                      <div className="bg-white rounded-xl shadow-sm p-3 space-y-5 mb-2">
+                          <h3 className="text-xl font-semibold mb-1">Related Store</h3>
+                          <ul className="">
+                            {filteredStores.map((store) => (
+                            <li key={store.slug}>
+                                <Link
+                                  href={`/stores/${store.slug}`}
+                                  className="inline-block text-[.8rem] hover:underline"
+                                >
+                                    {store.title}
+                                </Link>
+                            </li>
+                            ))}
+                          </ul>
+                      </div>
+                       
                     </aside>
                   </>
                 }
@@ -243,6 +292,36 @@ export default async function StorePage({ params }) {
               />
               {/* faqs */}
               <StoreFaqs faqsHtml={store.extra_info} storeName={store.title}  />
+
+              <ResponsiveRender breakpoint={1023}
+                mobile={
+                  <>
+                    <div>
+                        {/* Related Store  */}
+                        <h2 className="text-lg font-semibold mt-10">
+                          Related Stores
+                        </h2>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+                          {filteredStores.map((store) => (
+                            <Link
+                              key={store.slug}
+                              href={`/stores/${store.slug}`}
+                              className="border rounded p-1 hover:shadow"
+                            >
+                            
+
+                              <p className="text-sm font-medium line-clamp-1">
+                                {store.title}
+                              </p>
+                            </Link>
+                          ))}
+                        </div>
+                    </div>
+                  </>
+                }
+              />
+             
+
             </main>
           </div>
         </div>
