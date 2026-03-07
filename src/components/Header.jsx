@@ -35,7 +35,6 @@ export default function Header(){
     const defautNavClasses = "border-solid border-[#f0f3fe]  border-b-[2px] h-[65px] flex items-center px-[5px] text-[#7c828f] font-[400] text-[16px] uppercase"
     return(
         <>
-          
             <header className="h-[50px] min-h-fit items-center flex flex-row justify-between px-[20px] md:px-[40px] shadow-xs relative bg-[#f0f3fe]">
                <ResponsiveRender breakpoint={768}
                 mobile={
@@ -55,11 +54,11 @@ export default function Header(){
                     <div className="logo">
                         <Link href="/">
                             <Image
-                                src={'https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600'}
-                                width={50}
-                                height={50}
+                                src='/images/homiy.png'
+                                width={80}
+                                height={60}
                                 alt="logo"
-                                className="h-auto"
+                                className="h-auto object-contain"
                                 loading="eager"
                             />
                         </Link>

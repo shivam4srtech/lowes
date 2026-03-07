@@ -2,6 +2,9 @@ import Image from "next/image";
 import ProductSection from "../components/ProductSection";
 import BlogSection from "../components/BlogSection";
 import Link from 'next/link'
+import PromoDeals from "@/components/PromoDeals";
+import AffiliateDeals from "@/components/AffiliateDeals";
+import SponsoredDeals from "@/components/SponsoredDeals";
 async function getProducts() {
   const res = await fetch(
     "https://dummyjson.com/products?limit=20",
@@ -19,6 +22,9 @@ export default async function Home() {
   const products = await getProducts();
   return (
      <>
+        <PromoDeals/>
+        <AffiliateDeals/>
+        <SponsoredDeals/>
         <ProductSection products={products} />
         <BlogSection blogs={products} />
         <section className="category pb-[20px]">
