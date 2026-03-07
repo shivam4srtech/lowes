@@ -1,5 +1,4 @@
-import { GrHostMaintenance } from "react-icons/gr";
-export default function Category(){
+export default function Maintenance (){
     return(
         <>
             <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
@@ -34,5 +33,5 @@ export default function Category(){
                 </div>
             </div>
         </>
-    );
+    )
 }
