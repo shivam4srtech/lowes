@@ -63,3 +63,8 @@ margin-bottom: .2rem;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+@media (max-width:1023px){
+    .str_page aside{
+    display: none;
+}
+}

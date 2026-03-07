@@ -1,7 +1,6 @@
 // app/stores/[slug]/loading.jsx
 
-import ResponsiveRender from "@/components/ResponsiveRender";
-
+import ResponsiveRender from "@/components/ResponsiveRender"
 export default function Loading() {
   return (
     <>

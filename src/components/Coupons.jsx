@@ -167,7 +167,7 @@ const toggleAccordion = (couponId, type) => {
                         <h3 className="md:text-[1.1rem] text-[.9rem] font-semibold">
                           {coupon.title}
                         </h3>
-                        <p className="text-gray-600 md:text-[1rem] text-[.8rem]">
+                        <p className="text-gray-600 md:text-[.9rem] text-[.8rem]">
                         {coupon.content}
                         </p>
 

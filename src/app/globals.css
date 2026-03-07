@@ -32,4 +32,9 @@ header .search svg{
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+@media(max-width:768px){
+  .desktop_nav_links{
+    display: none;
+  }
+}
 

@@ -145,14 +145,11 @@ const categorySlug = store.category?.[0]?.slug;
   }, { text: "No Offer", discount: 0 }).text;
   return (
        <>
-        <div className="bg-gray-100 min-h-screen py-4">
+        <div className="bg-gray-100 min-h-screen py-4 str_page">
           <div className="max-w-7xl mx-auto md:px-4 px-2 grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
             
             {/* LEFT SIDEBAR */}
-            <ResponsiveRender breakpoint={1023}
-                desktop={
-                  <>
-                    <aside className="text-gray-800">
+            <aside className="text-gray-800">
                       <div className="bg-white rounded-xl shadow-sm p-3 space-y-5 mb-2">
 
                         {/* Total Offers */}
@@ -233,10 +230,7 @@ const categorySlug = store.category?.[0]?.slug;
                           </ul>
                       </div>
                        
-                    </aside>
-                  </>
-                }
-            />
+            </aside>
 
             {/* RIGHT CONTENT */}
             <main className="lg:col-span-3">

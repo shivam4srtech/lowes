@@ -64,24 +64,17 @@ export default function Header(){
                             />
                         </Link>
                     </div>
-                    <ResponsiveRender breakpoint={768}
-                        
-                        desktop={
-                            <>
-                                <ul className="navLinks flex item-center items-center gap-5">
-                                    <li className="flex items-center">
-                                        <Link href={'/'} className={`${defautNavClasses} ${pathname === "/" ? "active" : ''}`} >Home</Link>
-                                    </li>
-                                    <li className="flex items-center">
-                                        <Link href={'/category'} className={`${defautNavClasses} ${pathname === "/category" ? "active" : ''}`} >Category</Link>
-                                    </li>
-                                    <li className="flex items-center">
-                                        <Link href={'/stores'} className={`${defautNavClasses} ${pathname === "/stores" ? "active" : ''}`} >Store</Link>
-                                    </li>
-                                </ul>
-                            </>
-                        }
-                    />
+                    <ul className="navLinks flex item-center items-center gap-5 desktop_nav_links">
+                        <li className="flex items-center">
+                            <Link href={'/'} className={`${defautNavClasses} ${pathname === "/" ? "active" : ''}`} >Home</Link>
+                        </li>
+                        <li className="flex items-center">
+                            <Link href={'/products'} className={`${defautNavClasses} ${pathname === "/products" ? "active" : ''}`} >Product</Link>
+                        </li>
+                        <li className="flex items-center">
+                            <Link href={'/stores'} className={`${defautNavClasses} ${pathname === "/stores" ? "active" : ''}`} >Stores</Link>
+                        </li>
+                    </ul>
                 </div>
                 <ResponsiveRender breakpoint={768}
                     mobile={
