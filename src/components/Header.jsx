@@ -149,13 +149,13 @@ export default function Header(){
                                 </li>
                                 <li>
                                     <Link
-                                    href="/category"
+                                    href="/products"
                                     onClick={() => setIsOpen(false)}
                                     className={`${defautNavClasses} ${
-                                        pathname === "/category" ? "active" : ""
+                                        pathname === "/products" ? "active" : ""
                                     }`}
                                     >
-                                    Category
+                                    Products
                                     </Link>
                                 </li>
                                 <li>
